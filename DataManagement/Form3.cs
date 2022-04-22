@@ -32,7 +32,7 @@ namespace DataManagement
         {
             using (var dc = new DataClasses1DataContext())
             {
-                var query = dc.ProductUPCs.Where(x => x.ProductId == productContext).First();
+                var query = dc.ProductUPCs.Where(x => x.ProductID == productContext).First();
                 ImageConverter converter = new ImageConverter();
                 pictureBox1.Image = (Image)converter.ConvertFrom(query.UpcImage.ToArray());
                 textBox2.Text = query.Product.ProductID.ToString();

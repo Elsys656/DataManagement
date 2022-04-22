@@ -27,17 +27,39 @@
       <Column Name="DiscontinuedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Product_ProductUPC" Member="ProductUPCs" ThisKey="ProductID" OtherKey="Id" Type="ProductUPC" Cardinality="One" />
+      <Association Name="Product_ProductUPC" Member="ProductUPCs" ThisKey="ProductID" OtherKey="ProductID" Type="ProductUPC" Cardinality="One" />
+      <Association Name="Product_ProductInventory" Member="ProductInventories" ThisKey="ProductID" OtherKey="ProductID" Type="ProductInventory" />
     </Type>
   </Table>
   <Table Name="Production.ProductUPC" Member="ProductUPCs">
     <Type Name="ProductUPC">
-      <Column Name="Id" AutoSync="Always" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id" Member="ProductID" Storage="_Id" AutoSync="Always" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="UpcAType" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UpcACompany" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UpcID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UpcImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="Product_ProductUPC" Member="Product" ThisKey="Id" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+      <Association Name="Product_ProductUPC" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Production.vProductAndDescription" Member="vProductAndDescriptions">
+    <Type Name="vProductAndDescription">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ProductModel" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CultureID" Type="System.String" DbType="NChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="Production.ProductInventory" Member="ProductInventories">
+    <Type Name="ProductInventory">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LocationID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Shelf" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Bin" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Product_ProductInventory" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
